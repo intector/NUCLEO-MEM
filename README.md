@@ -10,7 +10,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 ![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20%2B%20VisualGDB-5C2D91.svg)
 
 <p align="center">
-  <img src="pictures/pic_03_cover.jpg" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
+  <img src="hardware/images/pic_03_cover.jpg" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
 </p>
 
 ## Features
@@ -46,7 +46,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 | Ethernet PHY | LAN8742A | RMII | 100 Mbit (on NUCLEO board) |
 
 <p align="center">
-  <img src="pictures/pic_01.jpg" alt="NUCLEO-MEM shield — front and back" width="700">
+  <img src="hardware/images/pic_01.jpg" alt="NUCLEO-MEM shield — front and back" width="700">
 </p>
 
 Shield schematics are available in the [`hardware/`](hardware/) folder.
@@ -101,7 +101,7 @@ Shield schematics are available in the [`hardware/`](hardware/) folder.
 The `Lab-Page-Demo/` directory contains a Bootstrap single-page application served by the on-board HTTP server. It connects to the WebSocket server on port 8080 for real-time interaction.
 
 <p align="center">
-  <img src="pictures/Web-Interface-1.png" alt="Web dashboard — LED control and live telemetry" width="900">
+  <img src="hardware/images/Web-Interface-1.png" alt="Web dashboard — LED control and live telemetry" width="900">
 </p>
 
 ### WebSocket API (port 8080)
@@ -159,7 +159,7 @@ Connect the NUCLEO board to your network and navigate to `http://192.168.0.50` f
 The shield includes an SSD1306 128×32 OLED that shows real-time system status including network state, IP address, and Ethernet link information — driven by a dedicated RTOS thread.
 
 <p align="center">
-  <img src="pictures/pic_06.jpg" alt="NUCLEO-MEM running with OLED status display" width="500">
+  <img src="hardware/images/pic_06.jpg" alt="NUCLEO-MEM running with OLED status display" width="500">
 </p>
 
 ## Technical Details
