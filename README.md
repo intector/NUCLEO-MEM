@@ -101,7 +101,7 @@ Shield schematics are available in the [`hardware/`](hardware/) folder.
 The `Lab-Page-Demo/` directory contains a Bootstrap single-page application served by the on-board HTTP server. It connects to the WebSocket server on port 8080 for real-time interaction.
 
 <p align="center">
-  <img src="hardware/images/Web-Interface-1.png" alt="Web dashboard — LED control and live telemetry" width="900">
+  <img src="hardware/images/Web-Interface-2.png" alt="Web dashboard — LED control and live telemetry" width="900">
 </p>
 
 ### WebSocket API (port 8080)
