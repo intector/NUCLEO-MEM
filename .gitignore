@@ -1,0 +1,48 @@
+# Build artifacts
+ExtMem/build/
+*.o
+*.elf
+*.bin
+*.hex
+*.map
+
+# IDE caches
+.vs/
+.visualgdb/
+.vscode/
+.idea/
+
+# Claude Code local
+.claude/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+build.ninja
+.ninja_*
+
+# VisualGDB user files
+*.vgdbcmake.*.user
+*.vcxproj.user
+
+# Internal documentation (not for public repo)
+.doc/
+CLAUDE.md
+CODE_STYLE.md
+project-directory-and-file-structure.md
+
+# Non-redistributable application data
+ExtMem/label/
+
+# Empty / stub modules
+ExtMem/FTM/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Scripts
+*.ps1
+
+# Export output
+WebProject_Export.txt

@@ -1,0 +1,679 @@
+/*
+ * Lab-Web - Lab Webpage
+ * Copyright (c) 2025-2030 Intector
+ *
+ * global color definitions
+ *
+ */
+
+/* ----------------------------------------------------------------------------- */
+/* Color Definitions */
+/* ----------------------------------------------------------------------------- */
+:root {
+    /* 2014 Material Design color palettes */
+    /* red color palette */
+    --labweb-red-50: #FFEBEE;
+    --labweb-red-50-rgb: 255, 235, 238;
+    --labweb-red-100: #FFCDD2;
+    --labweb-red-100-rgb: 255, 205, 210;
+    --labweb-red-200: #EF9A9A;
+    --labweb-red-200-rgb: 239, 154, 154;
+    --labweb-red-300: #E57373;
+    --labweb-red-300-rgb: 229, 115, 115;
+    --labweb-red-400: #EF5350;
+    --labweb-red-400-rgb: 239, 83, 80;
+    --labweb-red-500: #F44336;
+    --labweb-red-500-rgb: 244, 67, 54;
+    --labweb-red-600: #E53935;
+    --labweb-red-600-rgb: 229, 57, 53;
+    --labweb-red-700: #D32F2F;
+    --labweb-red-700-rgb: 211, 47, 47;
+    --labweb-red-800: #C62828;
+    --labweb-red-800-rgb: 198, 40, 40;
+    --labweb-red-900: #B71C1C;
+    --labweb-red-900-rgb: 183, 28, 28;
+    --labweb-red-a100: #FF8A80;
+    --labweb-red-a100-rgb: 255, 138, 128;
+    --labweb-red-a200: #FF5252;
+    --labweb-red-a200-rgb: 255, 82, 82;
+    --labweb-red-a400: #FF1744;
+    --labweb-red-a400-rgb: 255, 23, 68;
+    --labweb-red-a700: #D50000;
+    --labweb-red-a700-rgb: 213, 0, 0;
+
+    /* pink color palette */
+    --labweb-pink-50: #FCE4EC;
+    --labweb-pink-50-rgb: 252, 228, 236;
+    --labweb-pink-100: #F8BBD9;
+    --labweb-pink-100-rgb: 248, 187, 208;
+    --labweb-pink-200: #F48FB1;
+    --labweb-pink-200-rgb: 244, 143, 177;
+    --labweb-pink-300: #F06292;
+    --labweb-pink-300-rgb: 240, 98, 146;
+    --labweb-pink-400: #EC407A;
+    --labweb-pink-400-rgb: 236, 64, 122;
+    --labweb-pink-500: #E91E63;
+    --labweb-pink-500-rgb: 233, 30, 99;
+    --labweb-pink-600: #D81B60;
+    --labweb-pink-600-rgb: 216, 27, 96;
+    --labweb-pink-700: #C2185B;
+    --labweb-pink-700-rgb: 194, 24, 91;
+    --labweb-pink-800: #AD1457;
+    --labweb-pink-800-rgb: 173, 20, 87;
+    --labweb-pink-900: #880E4F;
+    --labweb-pink-900-rgb: 136, 14, 79;
+    --labweb-pink-a100: #FF80AB;
+    --labweb-pink-a100-rgb: 255, 128, 171;
+    --labweb-pink-a200: #FF4081;
+    --labweb-pink-a200-rgb: 255, 64, 129;
+    --labweb-pink-a400: #F50057;
+    --labweb-pink-a400-rgb: 245, 0, 87;
+    --labweb-pink-a700: #C51162;
+    --labweb-pink-a700-rgb: 197, 17, 98;
+
+    /* purple color palette */
+    --labweb-purple-50: #F3E5F5;
+    --labweb-purple-50-rgb: 243, 229, 245;
+    --labweb-purple-100: #E1BEE7;
+    --labweb-purple-100-rgb: 225, 190, 231;
+    --labweb-purple-200: #CE93D8;
+    --labweb-purple-200-rgb: 206, 147, 216;
+    --labweb-purple-300: #BA68C8;
+    --labweb-purple-300-rgb: 186, 104, 200;
+    --labweb-purple-400: #AB47BC;
+    --labweb-purple-400-rgb: 171, 71, 188;
+    --labweb-purple-500: #9C27B0;
+    --labweb-purple-500-rgb: 156, 39, 176;
+    --labweb-purple-600: #8E24AA;
+    --labweb-purple-600-rgb: 142, 36, 170;
+    --labweb-purple-700: #7B1FA2;
+    --labweb-purple-700-rgb: 123, 31, 162;
+    --labweb-purple-800: #6A1B9A;
+    --labweb-purple-800-rgb: 106, 27, 154;
+    --labweb-purple-900: #4A148C;
+    --labweb-purple-900-rgb: 74, 20, 140;
+    --labweb-purple-a100: #EA80FC;
+    --labweb-purple-a100-rgb: 234, 128, 252;
+    --labweb-purple-a200: #E040FB;
+    --labweb-purple-a200-rgb: 224, 64, 251;
+    --labweb-purple-a400: #D500F9;
+    --labweb-purple-a400-rgb: 213, 0, 249;
+    --labweb-purple-a700: #AA00FF;
+    --labweb-purple-a700-rgb: 170, 0, 255;
+
+    /* deep-purple color palette */
+    --labweb-deep-purple-50: #EDE7F6;
+    --labweb-deep-purple-50-rgb: 237, 231, 246;
+    --labweb-deep-purple-100: #D1C4E9;
+    --labweb-deep-purple-100-rgb: 209, 196, 233;
+    --labweb-deep-purple-200: #B39DDB;
+    --labweb-deep-purple-200-rgb: 179, 157, 219;
+    --labweb-deep-purple-300: #9575CD;
+    --labweb-deep-purple-300-rgb: 149, 117, 205;
+    --labweb-deep-purple-400: #7E57C2;
+    --labweb-deep-purple-400-rgb: 126, 87, 194;
+    --labweb-deep-purple-500: #673AB7;
+    --labweb-deep-purple-500-rgb: 103, 58, 183;
+    --labweb-deep-purple-600: #5E35B1;
+    --labweb-deep-purple-600-rgb: 94, 53, 177;
+    --labweb-deep-purple-700: #512DA8;
+    --labweb-deep-purple-700-rgb: 81, 45, 168;
+    --labweb-deep-purple-800: #4527A0;
+    --labweb-deep-purple-800-rgb: 69, 39, 160;
+    --labweb-deep-purple-900: #311B92;
+    --labweb-deep-purple-900-rgb: 49, 27, 146;
+    --labweb-deep-purple-a100: #B388FF;
+    --labweb-deep-purple-a100-rgb: 179, 136, 255;
+    --labweb-deep-purple-a200: #7C4DFF;
+    --labweb-deep-purple-a200-rgb: 124, 77, 255;
+    --labweb-deep-purple-a400: #651FFF;
+    --labweb-deep-purple-a400-rgb: 101, 31, 255;
+    --labweb-deep-purple-a700: #6200EA;
+    --labweb-deep-purple-a700-rgb: 98, 0, 234;
+
+    /* indigo color palette */
+    --labweb-indigo-50: #E8EAF6;
+    --labweb-indigo-50-rgb: 232, 234, 246;
+    --labweb-indigo-100: #C5CAE9;
+    --labweb-indigo-100-rgb: 197, 202, 233;
+    --labweb-indigo-200: #9FA8DA;
+    --labweb-indigo-200-rgb: 159, 168, 218;
+    --labweb-indigo-300: #7986CB;
+    --labweb-indigo-300-rgb: 121, 134, 203;
+    --labweb-indigo-400: #5C6BC0;
+    --labweb-indigo-400-rgb: 92, 107, 192;
+    --labweb-indigo-500: #3F51B5;
+    --labweb-indigo-500-rgb: 63, 81, 181;
+    --labweb-indigo-600: #3949AB;
+    --labweb-indigo-600-rgb: 57, 73, 171;
+    --labweb-indigo-700: #303F9F;
+    --labweb-indigo-700-rgb: 48, 63, 159;
+    --labweb-indigo-800: #283593;
+    --labweb-indigo-800-rgb: 40, 53, 147;
+    --labweb-indigo-900: #1A237E;
+    --labweb-indigo-900-rgb: 26, 35, 126;
+    --labweb-indigo-a100: #8C9EFF;
+    --labweb-indigo-a100-rgb: 140, 158, 255;
+    --labweb-indigo-a200: #536DFE;
+    --labweb-indigo-a200-rgb: 83, 109, 254;
+    --labweb-indigo-a400: #3D5AFE;
+    --labweb-indigo-a400-rgb: 61, 90, 254;
+    --labweb-indigo-a700: #304FFE;
+    --labweb-indigo-a700-rgb: 48, 79, 254;
+
+    /* blue color palette */
+    --labweb-blue-50: #E3F2FD;
+    --labweb-blue-50-rgb: 227, 242, 253;
+    --labweb-blue-100: #BBDEFB;
+    --labweb-blue-100-rgb: 187, 222, 251;
+    --labweb-blue-200: #90CAF9;
+    --labweb-blue-200-rgb: 144, 202, 249;
+    --labweb-blue-300: #64B5F6;
+    --labweb-blue-300-rgb: 100, 181, 246;
+    --labweb-blue-400: #42A5F5;
+    --labweb-blue-400-rgb: 66, 165, 245;
+    --labweb-blue-500: #2196F3;
+    --labweb-blue-500-rgb: 33, 150, 243;
+    --labweb-blue-600: #1E88E5;
+    --labweb-blue-600-rgb: 30, 136, 229;
+    --labweb-blue-700: #1976D2;
+    --labweb-blue-700-rgb: 25, 118, 210;
+    --labweb-blue-800: #1565C0;
+    --labweb-blue-800-rgb: 21, 101, 192;
+    --labweb-blue-900: #0D47A1;
+    --labweb-blue-900-rgb: 13, 71, 161;
+    --labweb-blue-a100: #82B1FF;
+    --labweb-blue-a100-rgb: 130, 177, 255;
+    --labweb-blue-a200: #448AFF;
+    --labweb-blue-a200-rgb: 68, 138, 255;
+    --labweb-blue-a400: #2979FF;
+    --labweb-blue-a400-rgb: 41, 121, 255;
+    --labweb-blue-a700: #2962FF;
+    --labweb-blue-a700-rgb: 41, 98, 255;
+
+    /* light-blue color palette */
+    --labweb-light-blue-50: #E1F5FE;
+    --labweb-light-blue-50-rgb: 225, 245, 254;
+    --labweb-light-blue-100: #B3E5FC;
+    --labweb-light-blue-100-rgb: 179, 229, 252;
+    --labweb-light-blue-200: #81D4FA;
+    --labweb-light-blue-200-rgb: 129, 212, 250;
+    --labweb-light-blue-300: #4FC3F7;
+    --labweb-light-blue-300-rgb: 79, 195, 247;
+    --labweb-light-blue-400: #29B6F6;
+    --labweb-light-blue-400-rgb: 41, 182, 246;
+    --labweb-light-blue-500: #03A9F4;
+    --labweb-light-blue-500-rgb: 3, 169, 244;
+    --labweb-light-blue-600: #039BE5;
+    --labweb-light-blue-600-rgb: 3, 155, 229;
+    --labweb-light-blue-700: #0288D1;
+    --labweb-light-blue-700-rgb: 2, 136, 209;
+    --labweb-light-blue-800: #0277BD;
+    --labweb-light-blue-800-rgb: 2, 119, 189;
+    --labweb-light-blue-900: #01579B;
+    --labweb-light-blue-900-rgb: 1, 87, 155;
+    --labweb-light-blue-a100: #80D8FF;
+    --labweb-light-blue-a100-rgb: 128, 216, 255;
+    --labweb-light-blue-a200: #40C4FF;
+    --labweb-light-blue-a200-rgb: 64, 196, 255;
+    --labweb-light-blue-a400: #00B0FF;
+    --labweb-light-blue-a400-rgb: 0, 176, 255;
+    --labweb-light-blue-a700: #0091EA;
+    --labweb-light-blue-a700-rgb: 0, 145, 234;
+
+    /* cyan color palette */
+    --labweb-cyan-50: #E0F7FA;
+    --labweb-cyan-50-rgb: 224, 247, 250;
+    --labweb-cyan-100: #B2EBF2;
+    --labweb-cyan-100-rgb: 178, 235, 242;
+    --labweb-cyan-200: #80DEEA;
+    --labweb-cyan-200-rgb: 128, 222, 234;
+    --labweb-cyan-300: #4DD0E1;
+    --labweb-cyan-300-rgb: 77, 208, 225;
+    --labweb-cyan-400: #26C6DA;
+    --labweb-cyan-400-rgb: 38, 198, 218;
+    --labweb-cyan-500: #00BCD4;
+    --labweb-cyan-500-rgb: 0, 188, 212;
+    --labweb-cyan-600: #00ACC1;
+    --labweb-cyan-600-rgb: 0, 172, 193;
+    --labweb-cyan-700: #0097A7;
+    --labweb-cyan-700-rgb: 0, 151, 167;
+    --labweb-cyan-800: #00838F;
+    --labweb-cyan-800-rgb: 0, 131, 143;
+    --labweb-cyan-900: #006064;
+    --labweb-cyan-900-rgb: 0, 96, 100;
+    --labweb-cyan-a100: #84FFFF;
+    --labweb-cyan-a100-rgb: 132, 255, 255;
+    --labweb-cyan-a200: #18FFFF;
+    --labweb-cyan-a200-rgb: 24, 255, 255;
+    --labweb-cyan-a400: #00E5FF;
+    --labweb-cyan-a400-rgb: 0, 229, 255;
+    --labweb-cyan-a700: #00B8D4;
+    --labweb-cyan-a700-rgb: 0, 184, 212;
+
+    /* teal color palette */
+    --labweb-teal-50: #E0F2F1;
+    --labweb-teal-50-rgb: 224, 242, 241;
+    --labweb-teal-100: #B2DFDB;
+    --labweb-teal-100-rgb: 178, 223, 219;
+    --labweb-teal-200: #80CBC4;
+    --labweb-teal-200-rgb: 128, 203, 196;
+    --labweb-teal-300: #4DB6AC;
+    --labweb-teal-300-rgb: 77, 182, 172;
+    --labweb-teal-400: #26A69A;
+    --labweb-teal-400-rgb: 38, 166, 154;
+    --labweb-teal-500: #009688;
+    --labweb-teal-500-rgb: 0, 150, 136;
+    --labweb-teal-600: #00897B;
+    --labweb-teal-600-rgb: 0, 137, 123;
+    --labweb-teal-700: #00796B;
+    --labweb-teal-700-rgb: 0, 121, 107;
+    --labweb-teal-800: #00695C;
+    --labweb-teal-800-rgb: 0, 105, 92;
+    --labweb-teal-900: #004D40;
+    --labweb-teal-900-rgb: 0, 77, 64;
+    --labweb-teal-a100: #A7FFEB;
+    --labweb-teal-a100-rgb: 167, 255, 235;
+    --labweb-teal-a200: #64FFDA;
+    --labweb-teal-a200-rgb: 100, 255, 218;
+    --labweb-teal-a400: #1DE9B6;
+    --labweb-teal-a400-rgb: 29, 233, 182;
+    --labweb-teal-a700: #00BFA5;
+    --labweb-teal-a700-rgb: 0, 191, 165;
+
+    /* green color palette */
+    --labweb-green-50: #E8F5E8;
+    --labweb-green-50-rgb: 232, 245, 232;
+    --labweb-green-100: #C8E6C9;
+    --labweb-green-100-rgb: 200, 230, 201;
+    --labweb-green-200: #A5D6A7;
+    --labweb-green-200-rgb: 165, 214, 167;
+    --labweb-green-300: #81C784;
+    --labweb-green-300-rgb: 129, 199, 132;
+    --labweb-green-400: #66BB6A;
+    --labweb-green-400-rgb: 102, 187, 106;
+    --labweb-green-500: #4CAF50;
+    --labweb-green-500-rgb: 76, 175, 80;
+    --labweb-green-600: #43A047;
+    --labweb-green-600-rgb: 67, 160, 71;
+    --labweb-green-700: #388E3C;
+    --labweb-green-700-rgb: 56, 142, 60;
+    --labweb-green-800: #2E7D32;
+    --labweb-green-800-rgb: 46, 125, 50;
+    --labweb-green-900: #1B5E20;
+    --labweb-green-900-rgb: 27, 94, 32;
+    --labweb-green-a100: #B9F6CA;
+    --labweb-green-a100-rgb: 185, 246, 202;
+    --labweb-green-a200: #69F0AE;
+    --labweb-green-a200-rgb: 105, 240, 174;
+    --labweb-green-a400: #00E676;
+    --labweb-green-a400-rgb: 0, 230, 118;
+    --labweb-green-a700: #00C853;
+    --labweb-green-a700-rgb: 0, 200, 83;
+
+    /* light-green color palette */
+    --labweb-light-green-50: #F1F8E9;
+    --labweb-light-green-50-rgb: 241, 248, 233;
+    --labweb-light-green-100: #DCEDC8;
+    --labweb-light-green-100-rgb: 220, 237, 200;
+    --labweb-light-green-200: #C5E1A5;
+    --labweb-light-green-200-rgb: 197, 225, 165;
+    --labweb-light-green-300: #AED581;
+    --labweb-light-green-300-rgb: 174, 213, 129;
+    --labweb-light-green-400: #9CCC65;
+    --labweb-light-green-400-rgb: 156, 204, 101;
+    --labweb-light-green-500: #8BC34A;
+    --labweb-light-green-500-rgb: 139, 195, 74;
+    --labweb-light-green-600: #7CB342;
+    --labweb-light-green-600-rgb: 124, 179, 66;
+    --labweb-light-green-700: #689F38;
+    --labweb-light-green-700-rgb: 104, 159, 56;
+    --labweb-light-green-800: #558B2F;
+    --labweb-light-green-800-rgb: 85, 139, 47;
+    --labweb-light-green-900: #33691E;
+    --labweb-light-green-900-rgb: 51, 105, 30;
+    --labweb-light-green-a100: #CCFF90;
+    --labweb-light-green-a100-rgb: 204, 255, 144;
+    --labweb-light-green-a200: #B2FF59;
+    --labweb-light-green-a200-rgb: 178, 255, 89;
+    --labweb-light-green-a400: #76FF03;
+    --labweb-light-green-a400-rgb: 118, 255, 3;
+    --labweb-light-green-a700: #64DD17;
+    --labweb-light-green-a700-rgb: 100, 221, 23;
+
+    /* lime color palette */
+    --labweb-lime-50: #F9FBE7;
+    --labweb-lime-50-rgb: 249, 251, 231;
+    --labweb-lime-100: #F0F4C3;
+    --labweb-lime-100-rgb: 240, 244, 195;
+    --labweb-lime-200: #E6EE9C;
+    --labweb-lime-200-rgb: 230, 238, 156;
+    --labweb-lime-300: #DCE775;
+    --labweb-lime-300-rgb: 220, 231, 117;
+    --labweb-lime-400: #D4E157;
+    --labweb-lime-400-rgb: 212, 225, 87;
+    --labweb-lime-500: #CDDC39;
+    --labweb-lime-500-rgb: 205, 220, 57;
+    --labweb-lime-600: #C0CA33;
+    --labweb-lime-600-rgb: 192, 202, 51;
+    --labweb-lime-700: #AFB42B;
+    --labweb-lime-700-rgb: 175, 180, 43;
+    --labweb-lime-800: #9E9D24;
+    --labweb-lime-800-rgb: 158, 157, 36;
+    --labweb-lime-900: #827717;
+    --labweb-lime-900-rgb: 130, 119, 23;
+    --labweb-lime-a100: #F4FF81;
+    --labweb-lime-a100-rgb: 244, 255, 129;
+    --labweb-lime-a200: #EEFF41;
+    --labweb-lime-a200-rgb: 238, 255, 65;
+    --labweb-lime-a400: #C6FF00;
+    --labweb-lime-a400-rgb: 198, 255, 0;
+    --labweb-lime-a700: #AEEA00;
+    --labweb-lime-a700-rgb: 174, 234, 0;
+
+    /* yellow color palette */
+    --labweb-yellow-50: #FFFDE7;
+    --labweb-yellow-50-rgb: 255, 253, 231;
+    --labweb-yellow-100: #FFF9C4;
+    --labweb-yellow-100-rgb: 255, 249, 196;
+    --labweb-yellow-200: #FFF59D;
+    --labweb-yellow-200-rgb: 255, 245, 157;
+    --labweb-yellow-300: #FFF176;
+    --labweb-yellow-300-rgb: 255, 241, 118;
+    --labweb-yellow-400: #FFEE58;
+    --labweb-yellow-400-rgb: 255, 238, 88;
+    --labweb-yellow-500: #FFEB3B;
+    --labweb-yellow-500-rgb: 255, 235, 59;
+    --labweb-yellow-600: #FDD835;
+    --labweb-yellow-600-rgb: 253, 216, 53;
+    --labweb-yellow-700: #F9A825;
+    --labweb-yellow-700-rgb: 249, 168, 37;
+    --labweb-yellow-800: #F57F17;
+    --labweb-yellow-800-rgb: 245, 127, 23;
+    --labweb-yellow-900: #F57C00;
+    --labweb-yellow-900-rgb: 245, 124, 0;
+    --labweb-yellow-a100: #FFFF8D;
+    --labweb-yellow-a100-rgb: 255, 255, 141;
+    --labweb-yellow-a200: #FFFF00;
+    --labweb-yellow-a200-rgb: 255, 255, 0;
+    --labweb-yellow-a400: #FFEA00;
+    --labweb-yellow-a400-rgb: 255, 234, 0;
+    --labweb-yellow-a700: #FFD600;
+    --labweb-yellow-a700-rgb: 255, 214, 0;
+
+    /* amber color palette */
+    --labweb-amber-50: #FFF8E1;
+    --labweb-amber-50-rgb: 255, 248, 225;
+    --labweb-amber-100: #FFECB3;
+    --labweb-amber-100-rgb: 255, 236, 179;
+    --labweb-amber-200: #FFE082;
+    --labweb-amber-200-rgb: 255, 224, 130;
+    --labweb-amber-300: #FFD54F;
+    --labweb-amber-300-rgb: 255, 213, 79;
+    --labweb-amber-400: #FFCA28;
+    --labweb-amber-400-rgb: 255, 202, 40;
+    --labweb-amber-500: #FFC107;
+    --labweb-amber-500-rgb: 255, 193, 7;
+    --labweb-amber-600: #FFB300;
+    --labweb-amber-600-rgb: 255, 179, 0;
+    --labweb-amber-700: #FFA000;
+    --labweb-amber-700-rgb: 255, 160, 0;
+    --labweb-amber-800: #FF8F00;
+    --labweb-amber-800-rgb: 255, 143, 0;
+    --labweb-amber-900: #FF6F00;
+    --labweb-amber-900-rgb: 255, 111, 0;
+    --labweb-amber-a100: #FFE57F;
+    --labweb-amber-a100-rgb: 255, 229, 127;
+    --labweb-amber-a200: #FFD740;
+    --labweb-amber-a200-rgb: 255, 215, 64;
+    --labweb-amber-a400: #FFC400;
+    --labweb-amber-a400-rgb: 255, 196, 0;
+    --labweb-amber-a700: #FFAB00;
+    --labweb-amber-a700-rgb: 255, 171, 0;
+
+    /* orange color palette */
+    --labweb-orange-50: #FFF3E0;
+    --labweb-orange-50-rgb: 255, 243, 224;
+    --labweb-orange-100: #FFE0B2;
+    --labweb-orange-100-rgb: 255, 224, 178;
+    --labweb-orange-200: #FFCC80;
+    --labweb-orange-200-rgb: 255, 204, 128;
+    --labweb-orange-300: #FFB74D;
+    --labweb-orange-300-rgb: 255, 183, 77;
+    --labweb-orange-400: #FFA726;
+    --labweb-orange-400-rgb: 255, 167, 38;
+    --labweb-orange-500: #FF9800;
+    --labweb-orange-500-rgb: 255, 152, 0;
+    --labweb-orange-600: #FB8C00;
+    --labweb-orange-600-rgb: 251, 140, 0;
+    --labweb-orange-700: #F57C00;
+    --labweb-orange-700-rgb: 245, 124, 0;
+    --labweb-orange-800: #EF6C00;
+    --labweb-orange-800-rgb: 239, 108, 0;
+    --labweb-orange-900: #E65100;
+    --labweb-orange-900-rgb: 230, 81, 0;
+    --labweb-orange-a100: #FFD180;
+    --labweb-orange-a100-rgb: 255, 209, 128;
+    --labweb-orange-a200: #FFAB40;
+    --labweb-orange-a200-rgb: 255, 171, 64;
+    --labweb-orange-a400: #FF9100;
+    --labweb-orange-a400-rgb: 255, 145, 0;
+    --labweb-orange-a700: #FF6D00;
+    --labweb-orange-a700-rgb: 255, 109, 0;
+
+    /* deep-orange color palette */
+    --labweb-deep-orange-50: #FBE9E7;
+    --labweb-deep-orange-50-rgb: 251, 233, 231;
+    --labweb-deep-orange-100: #FFCCBC;
+    --labweb-deep-orange-100-rgb: 255, 204, 188;
+    --labweb-deep-orange-200: #FFAB91;
+    --labweb-deep-orange-200-rgb: 255, 171, 145;
+    --labweb-deep-orange-300: #FF8A65;
+    --labweb-deep-orange-300-rgb: 255, 138, 101;
+    --labweb-deep-orange-400: #FF7043;
+    --labweb-deep-orange-400-rgb: 255, 112, 67;
+    --labweb-deep-orange-500: #FF5722;
+    --labweb-deep-orange-500-rgb: 255, 87, 34;
+    --labweb-deep-orange-600: #F4511E;
+    --labweb-deep-orange-600-rgb: 244, 81, 30;
+    --labweb-deep-orange-700: #E64A19;
+    --labweb-deep-orange-700-rgb: 230, 74, 25;
+    --labweb-deep-orange-800: #D84315;
+    --labweb-deep-orange-800-rgb: 216, 67, 21;
+    --labweb-deep-orange-900: #BF360C;
+    --labweb-deep-orange-900-rgb: 191, 54, 12;
+    --labweb-deep-orange-a100: #FF9E80;
+    --labweb-deep-orange-a100-rgb: 255, 158, 128;
+    --labweb-deep-orange-a200: #FF6E40;
+    --labweb-deep-orange-a200-rgb: 255, 110, 64;
+    --labweb-deep-orange-a400: #FF3D00;
+    --labweb-deep-orange-a400-rgb: 255, 61, 0;
+    --labweb-deep-orange-a700: #DD2C00;
+    --labweb-deep-orange-a700-rgb: 221, 44, 0;
+
+    /* brown color palette */
+    --labweb-brown-50: #EFEBE9;
+    --labweb-brown-50-rgb: 239, 235, 233;
+    --labweb-brown-100: #D7CCC8;
+    --labweb-brown-100-rgb: 215, 204, 200;
+    --labweb-brown-200: #BCAAA4;
+    --labweb-brown-200-rgb: 188, 170, 164;
+    --labweb-brown-300: #A1887F;
+    --labweb-brown-300-rgb: 161, 136, 127;
+    --labweb-brown-400: #8D6E63;
+    --labweb-brown-400-rgb: 141, 110, 99;
+    --labweb-brown-500: #795548;
+    --labweb-brown-500-rgb: 121, 85, 72;
+    --labweb-brown-600: #6D4C41;
+    --labweb-brown-600-rgb: 109, 76, 65;
+    --labweb-brown-700: #5D4037;
+    --labweb-brown-700-rgb: 93, 64, 55;
+    --labweb-brown-800: #4E342E;
+    --labweb-brown-800-rgb: 78, 52, 46;
+    --labweb-brown-900: #3E2723;
+    --labweb-brown-900-rgb: 62, 39, 35;
+
+    /* gray color palette */
+    --labweb-gray-50: #FAFAFA;
+    --labweb-gray-50-rgb: 250, 250, 250;
+    --labweb-gray-100: #F5F5F5;
+    --labweb-gray-100-rgb: 245, 245, 245;
+    --labweb-gray-200: #EEEEEE;
+    --labweb-gray-200-rgb: 238, 238, 238;
+    --labweb-gray-300: #E0E0E0;
+    --labweb-gray-300-rgb: 224, 224, 224;
+    --labweb-gray-400: #BDBDBD;
+    --labweb-gray-400-rgb: 189, 189, 189;
+    --labweb-gray-500: #9E9E9E;
+    --labweb-gray-500-rgb: 158, 158, 158;
+    --labweb-gray-600: #757575;
+    --labweb-gray-600-rgb: 117, 117, 117;
+    --labweb-gray-700: #616161;
+    --labweb-gray-700-rgb: 97, 97, 97;
+    --labweb-gray-800: #424242;
+    --labweb-gray-800-rgb: 66, 66, 66;
+    --labweb-gray-900: #212121;
+    --labweb-gray-900-rgb: 33, 33, 33;
+
+    /* blue-gray color palette */
+    --labweb-blue-gray-50: #ECEFF1;
+    --labweb-blue-gray-50-rgb: 236, 239, 241;
+    --labweb-blue-gray-100: #CFD8DC;
+    --labweb-blue-gray-100-rgb: 207, 216, 220;
+    --labweb-blue-gray-200: #B0BEC5;
+    --labweb-blue-gray-200-rgb: 176, 190, 197;
+    --labweb-blue-gray-300: #90A4AE;
+    --labweb-blue-gray-300-rgb: 144, 164, 174;
+    --labweb-blue-gray-400: #78909C;
+    --labweb-blue-gray-400-rgb: 120, 144, 156;
+    --labweb-blue-gray-500: #607D8B;
+    --labweb-blue-gray-500-rgb: 96, 125, 139;
+    --labweb-blue-gray-600: #546E7A;
+    --labweb-blue-gray-600-rgb: 84, 110, 122;
+    --labweb-blue-gray-700: #455A64;
+    --labweb-blue-gray-700-rgb: 69, 90, 100;
+    --labweb-blue-gray-800: #37474F;
+    --labweb-blue-gray-800-rgb: 55, 71, 79;
+    --labweb-blue-gray-900: #263238;
+    --labweb-blue-gray-900-rgb: 38, 50, 56;
+
+    /* SRO Application color definitions */
+    --labweb-automatic: #1B5E20;
+    --labweb-automatic-rgb: 27, 94, 32;
+
+    --labweb-manual: #FFD600;
+    --labweb-manual-rgb: 255, 214, 0;
+
+    --labweb-tuning: #0D47A1;
+    --labweb-tuning-rgb: 13, 71, 161;
+
+    --labweb-settings: #4A148C;
+    --labweb-settings-rgb: 74, 20, 140;
+
+    --labweb-error-bg: #B71C1C;
+    --labweb-error-bg-rgb: 183, 28, 28;
+
+    --labweb-error-fg: #FFFF00;
+    --labweb-error-fg-rgb: 255, 255, 0;
+
+    --labweb-warning: #FF6D00;
+    --labweb-warning-rgb: 255, 109, 0;
+
+    --labweb-sb-warning: #FF6D00;
+    --labweb-sp-warning-rgb: 255, 109, 0;
+
+    --labweb-connected: #00C853;
+    --labweb-connected-rgb: 0, 200, 83;
+
+    --labweb-ok: #00C853;
+    --labweb-ok-rgb: 0, 200, 83;
+
+    --labweb-gradient-rgb: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+}
+
+/* SRO Color definitions for borders */
+.labweb-border-cell {
+    --bs-border-opacity: 1;
+    border: 1px solid rgba(var(--labweb-gray-700-rgb), var(--bs-border-opacity)) !important;
+}
+
+/* SRO Color definitions for borders */
+.labweb-border-not-connected {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-warning-rgb), var(--bs-border-opacity)) !important;
+}
+
+/* SRO Color definitions for borders */
+.labweb-border-automatic {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-automatic-rgb), var(--bs-border-opacity)) !important;
+}
+
+.labweb-border-manual {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-manual-rgb), var(--bs-border-opacity)) !important;
+}
+
+.labweb-border-tuning {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-tuning-rgb), var(--bs-border-opacity)) !important;
+}
+
+.labweb-border-settings {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-settings-rgb), var(--bs-border-opacity)) !important;
+}
+
+.labweb-border-error {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-error-bg-rgb), var(--bs-border-opacity)) !important;
+}
+
+.labweb-border-warning {
+    --bs-border-opacity: 1;
+    border-color: rgba(var(--labweb-warning-rgb), var(--bs-border-opacity)) !important;
+}
+
+/* SRO Color definitions for backgrounds */
+.labweb-bg-not-connected {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-warning-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-bg-automatic {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-automatic-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-bg-manual {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-manual-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-bg-tuning {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-tuning-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-bg-settings {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-settings-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-bg-error {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--labweb-error-bg-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.labweb-color-emergency-stop {
+    color: rgba(var(--labweb-error-fg-rgb)) !important;
+}
+
+.labweb-color-error {
+    color: rgba(var(--labweb-error-bg-rgb)) !important;
+}
+
+.labweb-color-warning {
+    color: rgba(var(--labweb-warning-rgb)) !important;
+}
+

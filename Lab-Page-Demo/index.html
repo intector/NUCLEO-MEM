@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lab-Web-Demo - STM32 WebSocket Demo</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="assets/css/Ubuntu.css">
+  <link rel="stylesheet" href="assets/css/Ubuntu_Condensed.css">
+  <link rel="stylesheet" href="assets/css/Ubuntu_Mono.css">
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap_slate.min.css" rel="stylesheet" id="theme-css">
+
+  <!-- Bootstrap Icons (offline) -->
+  <link rel="stylesheet" href="css/bootstrap-icons.css">
+
+  <!-- Custom Lab-Web Styles -->
+  <link href="assets/css/labweb_colors.css" rel="stylesheet">
+  <link href="assets/css/labweb_styles.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg bg-primary bg-gradient" data-bs-theme="dark">
+    <div class="container-fluid">
+      <div class="navbar-brand d-flex align-content-center" href="#">
+        <img src="assets/img/favicon-32x32.png" alt="Lab-Web-Demo Logo" class="mx-2">
+        <div>Lab-Web-Demo</div>
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Nav-Bar menu -->
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-section="dashboard">
+              <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" data-section="about">
+              <i class="bi bi-info-circle"></i> About
+            </a>
+          </li>
+        </ul>
+        <!-- Nav-Bar right side - connection status -->
+        <div class="d-flex align-items-center">
+          <div class="mx-auto">
+            <div class="hstack gap-2 mx-2">
+              <div class="bi bi-hdd-network connection-status-icon connecting"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Status bar -->
+  <div id="labweb-status-bar" class="alert bg-primary border border-dark rounded-top-0 py-1 d-flex" role="alert">
+    <div class="hstack gap-2">
+      <div id="first" class="d-flex align-items-center flex-grow-1">
+        <i id="status-icon" class="bi bi-info-circle text-warning me-2"></i>
+        <span id="status-message" class="text-warning">Ready - Waiting for connection...</span>
+      </div>
+      <!-- LED Status indicators in status bar -->
+      <div id="second" class="hstack gap-4 hardware-status-container me-4">
+        <div class="hardware-status-item">
+          <div class="hstack gap-1">
+            <span>Yellow LED:</span>
+            <i class="bi bi-circle-fill" id="status-bar-yellow-led" style="color: #555;"></i>
+            <span id="status-bar-yellow-text">OFF</span>
+          </div>
+        </div>
+        <div><span>|</span></div>
+        <div class="hardware-status-item">
+          <div class="hstack gap-1">
+            <span>Red LED:</span>
+            <i class="bi bi-circle-fill" id="status-bar-red-led" style="color: #555;"></i>
+            <span id="status-bar-red-text">OFF</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** Main Content ***** -->
+  <div class="container-fluid mt-3">
+
+    <!-- ================================================================== -->
+    <!-- Dashboard Section                                                  -->
+    <!-- ================================================================== -->
+    <div id="dashboard-section" class="content-section">
+      <div class="row g-3">
+
+        <!-- ============================================================ -->
+        <!-- LED Control Card                                             -->
+        <!-- ============================================================ -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-automatic">
+            <div class="card-header labweb-bg-automatic bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-lightbulb"></i> LED Control
+              </h5>
+            </div>
+            <div class="card-body">
+
+              <!-- Yellow LED -->
+              <div class="container-fluid bg-dark border rounded p-3 mb-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <i class="bi bi-circle-fill fs-2" id="yellow-led-indicator" style="color: #555;"></i>
+                  </div>
+                  <div class="col">
+                    <h5 class="mb-1">Yellow LED</h5>
+                    <span class="text-muted" id="yellow-led-status-text">OFF</span>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-lg btn-secondary px-4" id="yellow-led-btn" disabled>
+                      <i class="bi bi-power"></i> Turn ON
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Red LED -->
+              <div class="container-fluid bg-dark border rounded p-3 mb-3">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <i class="bi bi-circle-fill fs-2" id="red-led-indicator" style="color: #555;"></i>
+                  </div>
+                  <div class="col">
+                    <h5 class="mb-1">Red LED</h5>
+                    <span class="text-muted" id="red-led-status-text">OFF</span>
+                  </div>
+                  <div class="col-auto">
+                    <button class="btn btn-lg btn-secondary px-4" id="red-led-btn" disabled>
+                      <i class="bi bi-power"></i> Turn ON
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Info note -->
+              <div class="alert alert-secondary mb-0 py-2">
+                <i class="bi bi-info-circle"></i>
+                The green LED on the NUCLEO board is reserved for the heartbeat indicator.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- Telemetry Card                                               -->
+        <!-- ============================================================ -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-automatic">
+            <div class="card-header labweb-bg-automatic bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-graph-up"></i> Live Telemetry
+              </h5>
+            </div>
+            <div class="card-body">
+
+              <div class="container-fluid bg-dark border rounded p-3">
+                <div class="row py-2">
+
+                  <!-- Junction Temperature -->
+                  <div class="col-6 col-md-3 mb-3">
+                    <div class="text-center">
+                      <div class="labweb-font-size-small text-muted">MCU Junction Temp</div>
+                      <div class="labweb-font-size-xxl font-ubuntu-mono text-warning" id="telemetry-junction-temp">--</div>
+                      <div class="labweb-font-size-small text-muted">&deg;C</div>
+                    </div>
+                  </div>
+
+                  <!-- Random Float -->
+                  <div class="col-6 col-md-3 mb-3">
+                    <div class="text-center">
+                      <div class="labweb-font-size-small text-muted">Random Float</div>
+                      <div class="labweb-font-size-xxl font-ubuntu-mono text-info" id="telemetry-random-float">--</div>
+                      <div class="labweb-font-size-small text-muted">0 &ndash; 99.99</div>
+                    </div>
+                  </div>
+
+                  <!-- Random Integer -->
+                  <div class="col-6 col-md-3 mb-3">
+                    <div class="text-center">
+                      <div class="labweb-font-size-small text-muted">Random Integer</div>
+                      <div class="labweb-font-size-xxl font-ubuntu-mono text-info" id="telemetry-random-int">--</div>
+                      <div class="labweb-font-size-small text-muted">0 &ndash; 1000</div>
+                    </div>
+                  </div>
+
+                  <!-- Uptime -->
+                  <div class="col-6 col-md-3 mb-3">
+                    <div class="text-center">
+                      <div class="labweb-font-size-small text-muted">RTOS Uptime</div>
+                      <div class="labweb-font-size-xxl font-ubuntu-mono text-success" id="telemetry-uptime">--</div>
+                      <div class="labweb-font-size-small text-muted">seconds</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Telemetry status -->
+              <div class="alert alert-secondary mb-0 mt-3 py-2" id="telemetry-status">
+                <i class="bi bi-clock"></i> Waiting for telemetry data...
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- WebSocket Log Card                                           -->
+        <!-- ============================================================ -->
+        <div class="col-12">
+          <div class="card labweb-border-settings">
+            <div class="card-header labweb-bg-settings bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-terminal"></i> WebSocket Log
+                <button class="btn btn-sm btn-outline-light float-end" id="clear-log-btn">
+                  <i class="bi bi-trash"></i> Clear
+                </button>
+              </h5>
+            </div>
+            <div class="card-body p-0">
+              <div id="ws-log" class="font-ubuntu-mono p-3"
+                   style="height: 200px; overflow-y: auto; background: #1a1a2e; font-size: 0.8rem;">
+                <div class="text-muted">WebSocket log ready...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- About Section                                                      -->
+    <!-- ================================================================== -->
+    <div id="about-section" class="content-section">
+      <div class="row g-3">
+
+        <!-- System Overview -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-settings">
+            <div class="card-header labweb-bg-settings bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-cpu"></i> System Overview
+              </h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-dark table-sm mb-0">
+                <tbody>
+                  <tr><td class="text-muted">Project</td><td>Lab-Web-Demo</td></tr>
+                  <tr><td class="text-muted">Description</td><td>Open-source demo for STM32 + ThreadX WebSocket communication</td></tr>
+                  <tr><td class="text-muted">MCU</td><td>STM32H723ZGT6 (Cortex-M7, 550 MHz)</td></tr>
+                  <tr><td class="text-muted">Board</td><td>NUCLEO-H723ZG</td></tr>
+                  <tr><td class="text-muted">RTOS</td><td>Azure RTOS / ThreadX</td></tr>
+                  <tr><td class="text-muted">Network Stack</td><td>NetXDuo (TCP/IP)</td></tr>
+                  <tr><td class="text-muted">File System</td><td>FileX (eMMC storage)</td></tr>
+                  <tr><td class="text-muted">Ethernet</td><td>LAN8742A PHY (100 Mbit)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Communication -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-settings">
+            <div class="card-header labweb-bg-settings bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-hdd-network"></i> Communication
+              </h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-dark table-sm mb-0">
+                <tbody>
+                  <tr><td class="text-muted">HTTP Server</td><td>Port 80 &mdash; serves web interface from eMMC</td></tr>
+                  <tr><td class="text-muted">WebSocket Server</td><td>Port 8080 &mdash; real-time bidirectional JSON</td></tr>
+                  <tr><td class="text-muted">Default IP</td><td>192.168.0.50</td></tr>
+                  <tr><td class="text-muted">Max WS Clients</td><td>1 (single-client design)</td></tr>
+                  <tr><td class="text-muted">Telemetry Rate</td><td>~1 Hz</td></tr>
+                  <tr><td class="text-muted">Protocol</td><td>JSON text frames (RFC 6455)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Demo Features -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-automatic">
+            <div class="card-header labweb-bg-automatic bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-lightbulb"></i> Demo Features
+              </h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-dark table-sm mb-0">
+                <tbody>
+                  <tr><td class="text-muted">LED Control</td><td>Toggle yellow and red LEDs via WebSocket commands</td></tr>
+                  <tr><td class="text-muted">Junction Temp</td><td>MCU internal temperature sensor (ADC3)</td></tr>
+                  <tr><td class="text-muted">HW RNG</td><td>Random float and integer from hardware RNG peripheral</td></tr>
+                  <tr><td class="text-muted">Uptime</td><td>Seconds since ThreadX scheduler started</td></tr>
+                  <tr><td class="text-muted">Green LED</td><td>Reserved for RTOS heartbeat indicator</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Software Stack -->
+        <div class="col-12 col-lg-6">
+          <div class="card labweb-border-automatic">
+            <div class="card-header labweb-bg-automatic bg-gradient text-white">
+              <h5 class="mb-0">
+                <i class="bi bi-layers"></i> Software Stack
+              </h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-dark table-sm mb-0">
+                <tbody>
+                  <tr><td class="text-muted">Web Frontend</td><td>Bootstrap 5 (Slate theme), vanilla JavaScript</td></tr>
+                  <tr><td class="text-muted">Icons</td><td>Bootstrap Icons</td></tr>
+                  <tr><td class="text-muted">Fonts</td><td>Ubuntu, Ubuntu Condensed, Ubuntu Mono</td></tr>
+                  <tr><td class="text-muted">IDE</td><td>Visual Studio + VisualGDB</td></tr>
+                  <tr><td class="text-muted">HAL</td><td>STM32CubeH7 HAL drivers</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="col-12">
+          <div class="alert alert-secondary text-center mb-0 py-2">
+            <i class="bi bi-c-circle"></i> 2025 Intector &mdash; Open-source demo project
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- Not Connected Section                                              -->
+    <!-- ================================================================== -->
+    <div id="not-connected-section" class="content-section active">
+      <div class="row">
+        <div class="col-12">
+          <div class="card labweb-border-not-connected">
+            <div class="card-header labweb-bg-not-connected bg-gradient text-black">
+              <h5 class="mb-0">
+                <i class="bi bi-hdd-network"></i> Data Connection
+              </h5>
+            </div>
+            <div class="card-body connecting-bg">
+              <div class="vstack gap-2">
+                <div class="container-fluid h-100 d-flex justify-content-center align-items-center">
+                  <h1 class="h1 connection-status-icon connecting">trying to connect to WebSocket Server...</h1>
+                </div>
+
+                <div class="d-grid col-5 mx-auto py-1">
+                  <button type="button" id="btnWorkOffline"
+                          class="btn btn-lg btn-dark">start without connecting</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- ***** Main Content end ***** -->
+  <hr>
+  <!-- Footer -->
+  <footer class="text-center text-white-50">
+    <div class="col-12 labweb-copyright-text">
+      <p>Lab-Web-Demo &mdash; STM32H723 + ThreadX WebSocket Demo &mdash; &copy; 2025 Intector</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Libraries -->
+  <script src="js/jquery-3.7.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+
+  <!-- Lab-Web-Demo Application Scripts -->
+  <script src="assets/js/labweb_websocket.js"></script>
+  <script src="assets/js/labweb_main.js"></script>
+  <script src="assets/js/labweb_formatting_helper.js"></script>
+
+</body>
+</html>
