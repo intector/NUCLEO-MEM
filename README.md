@@ -10,7 +10,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 ![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20%2B%20VisualGDB-5C2D91.svg)
 
 <p align="center">
-  <img src="hardware/images/pic_03_cover.jpg" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
+  <img src="hardware/images/pic_03_cover.png" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
 </p>
 
 ## Features
@@ -46,7 +46,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 | Ethernet PHY | LAN8742A | RMII | 100 Mbit (on NUCLEO board) |
 
 <p align="center">
-  <img src="hardware/images/pic_01.jpg" alt="NUCLEO-MEM shield — front and back" width="700">
+  <img src="hardware/images/pic_01.png" alt="NUCLEO-MEM shield — front and back" width="700">
 </p>
 
 Shield schematics are available in the [`hardware/`](hardware/) folder.
