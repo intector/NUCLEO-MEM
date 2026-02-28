@@ -1,6 +1,6 @@
 # NUCLEO-MEM — Memory Expansion Shield for STM32 NUCLEO-144
 
-> *"Hardware is easy. It's the software that's hard."* — Elon Musk (We beg to differ.)
+> "If you want to go fast, go alone. If you want to go far, go together." — African Proverb
 
 A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OLED display** to ST NUCLEO-144 development boards — paired with a complete Azure RTOS firmware stack featuring network servers, real-time WebSocket telemetry, and a live web dashboard.
 
