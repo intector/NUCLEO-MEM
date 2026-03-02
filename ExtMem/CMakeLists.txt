@@ -57,6 +57,9 @@ add_bsp_based_executable(
 		FileX/App/app_filex.c
 		int_flash/internal_flash.h
 		int_flash/internal_flash.c
+		LLMNR/llmnr_responder.h
+		LLMNR/llmnr_responder.c
+		Middlewares/ST/netxduo/addons/mdns/nxd_mdns.c
 		NetXDuo/App/app_netxduo.h
 		NetXDuo/App/nx_user.h
 		NetXDuo/App/app_netxduo.c
@@ -1158,10 +1161,14 @@ add_bsp_based_executable(
 		Core/Inc/uart_debug.h
 		Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
 		Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
+		Middlewares/ST/netxduo/addons/mqtt/nxd_mqtt_client.h
+		Middlewares/ST/netxduo/addons/mqtt/nxd_mqtt_client.c
+		Middlewares/ST/netxduo/addons/mdns/nxd_mdns.h
+		Middlewares/ST/netxduo/addons/mdns/nxd_mdns.c
 	GENERATE_BIN
 	GENERATE_HEX
 	GENERATE_MAP
 	LINKER_SCRIPT STM32H723ZGTX_FLASH.ld)
 target_link_libraries(ExtMem PRIVATE -Wl,--print-memory-usage)
-target_include_directories(ExtMem PRIVATE Drivers/STM32H7xx_HAL_Driver/Inc AZURE_RTOS/App cjson Core/Inc Drivers/CMSIS/Device/ST/STM32H7xx/Include FileX/App FileX/Target int_flash label Middlewares/ST/filex/common/inc Middlewares/ST/filex/ports/generic/inc Middlewares/ST/netxduo/addons/ftp Middlewares/ST/netxduo/addons/web Middlewares/ST/netxduo/common/drivers/ethernet Middlewares/ST/netxduo/common/inc Middlewares/ST/netxduo/ports/cortex_m7/gnu/inc Middlewares/ST/threadx/common/inc Middlewares/ST/threadx/ports/cortex_m7/gnu/inc NetXDuo/App tools Drivers/BSP/Components/lan8742 NetXDuo/Target Drivers/CMSIS/Include display/ssd1306 display/fonts FTM/Inc Middlewares/ST/RFAL/include Middlewares/ST/RFAL/source/st25r95 Middlewares/ST/ST25FTM/Inc Middlewares/ST/utils/Inc MB_config MB_lib MB_lib/MB_common MB_lib/MB_debug MB_lib/MB_websockets_server WebSocket)
+target_include_directories(ExtMem PRIVATE Drivers/STM32H7xx_HAL_Driver/Inc AZURE_RTOS/App cjson Core/Inc Drivers/CMSIS/Device/ST/STM32H7xx/Include FileX/App FileX/Target int_flash label LLMNR Middlewares/ST/filex/common/inc Middlewares/ST/filex/ports/generic/inc Middlewares/ST/netxduo/addons/ftp Middlewares/ST/netxduo/addons/mdns Middlewares/ST/netxduo/addons/web Middlewares/ST/netxduo/common/drivers/ethernet Middlewares/ST/netxduo/common/inc Middlewares/ST/netxduo/ports/cortex_m7/gnu/inc Middlewares/ST/threadx/common/inc Middlewares/ST/threadx/ports/cortex_m7/gnu/inc NetXDuo/App tools Drivers/BSP/Components/lan8742 NetXDuo/Target Drivers/CMSIS/Include display/ssd1306 display/fonts FTM/Inc Middlewares/ST/RFAL/include Middlewares/ST/RFAL/source/st25r95 Middlewares/ST/ST25FTM/Inc Middlewares/ST/utils/Inc MB_config MB_lib MB_lib/MB_common MB_lib/MB_debug MB_lib/MB_websockets_server WebSocket)
 set_source_files_properties(${BSP_ROOT}/STM32H7xxxx/StartupFiles/startup_stm32h723xx.c PROPERTIES HEADER_FILE_ONLY TRUE)

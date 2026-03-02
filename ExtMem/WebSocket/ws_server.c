@@ -118,7 +118,6 @@ UINT WS_Server_Start(WS_Server_t *server)
                                          WS_SERVER_LISTEN_QUEUE_SIZE,
                                          NX_NULL);
     if (status != NX_SUCCESS) {
-        printf("WS: Listen failed: 0x%X\r\n", status);
         return status;
     }
 
@@ -128,8 +127,6 @@ UINT WS_Server_Start(WS_Server_t *server)
         nx_tcp_server_socket_unlisten(server->ip_instance, WS_SERVER_PORT);
         return status;
     }
-
-    printf("WebSocket server listening on port %d\r\n", WS_SERVER_PORT);
     return NX_SUCCESS;
 }
 
@@ -159,21 +156,15 @@ void WS_Server_AcceptThread_Entry(ULONG thread_input)
     WS_Server_t *server = (WS_Server_t *)thread_input;
     UINT status;
 
-    printf("WebSocket accept thread started\r\n");
-
     while (1) {
         // Accept connection (blocks until client connects)
         status = nx_tcp_server_socket_accept(&server->listen_socket, TX_WAIT_FOREVER);
 
         if (status == NX_SUCCESS) {
-            printf("WS: Client connecting...\r\n");
-
             // Perform WebSocket handshake on the listen socket
             status = ws_perform_handshake(&server->listen_socket, server->packet_pool);
 
             if (status == NX_SUCCESS) {
-                printf("WS: Handshake successful!\r\n");
-
                 // Mark first client slot as active
                 tx_mutex_get(&server->clients_mutex, TX_WAIT_FOREVER);
                 server->clients[0].active             = 1;
@@ -181,28 +172,19 @@ void WS_Server_AcceptThread_Entry(ULONG thread_input)
                 server->clients[0].last_activity      = tx_time_get();
                 tx_mutex_put(&server->clients_mutex);
 
-                printf("WS: Client connected (slot 0)\r\n");
-
                 // Send initial status update to new client
                 WS_SendLedStatus();
 
-                // ============================================================
-                // NEW: Receive loop for incoming frames
-                // ============================================================
+                // Receive loop for incoming frames
                 while (server->listen_socket.nx_tcp_socket_state == NX_TCP_ESTABLISHED) {
-                    // Try to receive frame
                     status = WS_ReceiveFrame(&server->listen_socket, server->packet_pool);
 
                     if (status == NX_NOT_CONNECTED) {
-                        // Client closed connection
                         break;
                     }
 
-                    // Sleep briefly to avoid busy-waiting
                     tx_thread_sleep(1); // 10ms
                 }
-
-                printf("WS: Client disconnected\r\n");
 
                 // Client disconnected, mark as inactive
                 tx_mutex_get(&server->clients_mutex, TX_WAIT_FOREVER);
@@ -215,7 +197,7 @@ void WS_Server_AcceptThread_Entry(ULONG thread_input)
                 status = nx_tcp_server_socket_relisten(server->ip_instance,
                                                        WS_SERVER_PORT,
                                                        &server->listen_socket);
-                if (status != NX_SUCCESS) {
+                if (status != NX_SUCCESS && status != NX_CONNECTION_PENDING) {
                     printf("WS: Relisten failed: 0x%X\r\n", status);
                 }
             }
@@ -322,18 +304,14 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     // Receive HTTP upgrade request
     status = nx_tcp_socket_receive(socket_ptr, &request_packet, 5 * NX_IP_PERIODIC_RATE);
     if (status != NX_SUCCESS) {
-        printf("WS: Receive failed: 0x%X\r\n", status);
         return status;
     }
 
     msg = (char *)request_packet->nx_packet_prepend_ptr;
     len = request_packet->nx_packet_length;
 
-    printf("WS: Received %d bytes\r\n", len);
-
     // Check for GET request
     if (ws_strnstr(msg, "GET ", len) == NULL) {
-        printf("WS: Not a GET request\r\n");
         nx_packet_release(request_packet);
         return NX_NOT_SUCCESSFUL;
     }
@@ -341,7 +319,6 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     // Check for Upgrade: websocket
     upgrade_ptr = ws_strnstr(msg, "Upgrade:", len);
     if (upgrade_ptr == NULL || ws_strnstr(upgrade_ptr, "websocket", 50) == NULL) {
-        printf("WS: No Upgrade: websocket\r\n");
         nx_packet_release(request_packet);
         return NX_NOT_SUCCESSFUL;
     }
@@ -349,7 +326,6 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     // Extract Sec-WebSocket-Key
     key_ptr = ws_strnstr(msg, "Sec-WebSocket-Key:", len);
     if (key_ptr == NULL) {
-        printf("WS: No Sec-WebSocket-Key\r\n");
         nx_packet_release(request_packet);
         return NX_NOT_SUCCESSFUL;
     }
@@ -360,7 +336,6 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
 
     crlf_ptr = strchr(key_ptr, '\r');
     if (crlf_ptr == NULL || (crlf_ptr - key_ptr) > 30) {
-        printf("WS: Invalid key format\r\n");
         nx_packet_release(request_packet);
         return NX_NOT_SUCCESSFUL;
     }
@@ -369,13 +344,10 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     strncpy(client_key, key_ptr, key_len);
     client_key[key_len] = '\0';
 
-    printf("WS: Client key: %s\r\n", client_key);
-
     nx_packet_release(request_packet);
 
     // Compute accept key
     ws_compute_accept_key(accept_key, client_key);
-    printf("WS: Accept key: %s\r\n", accept_key);
 
     // Build response
     snprintf(response_header, sizeof(response_header),
@@ -386,17 +358,9 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
              "\r\n",
              accept_key);
 
-    printf("WS: Sending response (%d bytes):\r\n%s\r\n---END---\r\n", strlen(response_header), response_header);
-    printf("WS: Response hex: ");
-    for (int i = 0; i < 50 && i < (int)strlen(response_header); i++) {
-        printf("%02X ", (unsigned char)response_header[i]);
-    }
-    printf("\r\n");
-
     // Allocate response packet
     status = nx_packet_allocate(pool_ptr, &response_packet, NX_TCP_PACKET, TX_WAIT_FOREVER);
     if (status != NX_SUCCESS) {
-        printf("WS: Packet alloc failed: 0x%X\r\n", status);
         return status;
     }
 
@@ -404,7 +368,6 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     status = nx_packet_data_append(response_packet, response_header, strlen(response_header),
                                    pool_ptr, TX_WAIT_FOREVER);
     if (status != NX_SUCCESS) {
-        printf("WS: Data append failed: 0x%X\r\n", status);
         nx_packet_release(response_packet);
         return status;
     }
@@ -412,12 +375,9 @@ static UINT ws_perform_handshake(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool
     // Send response
     status = nx_tcp_socket_send(socket_ptr, response_packet, TX_WAIT_FOREVER);
     if (status != NX_SUCCESS) {
-        printf("WS: Send failed: 0x%X\r\n", status);
         nx_packet_release(response_packet);
         return status;
     }
-
-    printf("WS: Handshake response sent\r\n");
 
     // Disable TCP timeout
     socket_ptr->nx_tcp_socket_timeout      = 0;
@@ -505,20 +465,16 @@ static UINT WS_ReceiveFrame(NX_TCP_SOCKET *socket_ptr, NX_PACKET_POOL *pool_ptr)
             memcpy(json_buffer, payload, payload_len);
             json_buffer[payload_len] = '\0';
 
-            printf("WS received: %s\r\n", json_buffer);
-
             // Parse and handle JSON command
             WS_HandleJSONCommand(json_buffer);
         }
     }
     else if (opcode == WS_OPCODE_CLOSE) {
-        printf("WS: Client sent close frame\r\n");
         nx_packet_release(packet_ptr);
         return NX_NOT_CONNECTED;
     }
     else if (opcode == WS_OPCODE_PING) {
         // TODO: Send pong response
-        printf("WS: Ping received\r\n");
     }
 
     nx_packet_release(packet_ptr);

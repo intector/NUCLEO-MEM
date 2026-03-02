@@ -175,6 +175,14 @@ extern "C" {
 #define ERR_NX_WS_ServerCreate         0x8009030100000000ULL // WebSocket server create
 #define ERR_NX_WS_ServerStart          0x8009030200000000ULL // WebSocket server start
 
+#define ERR_NX_MDNS_Create             0x8009040100000000ULL // mDNS instance create
+#define ERR_NX_MDNS_Enable             0x8009040200000000ULL // mDNS enable
+#define ERR_NX_MDNS_SvcAdd             0x8009040300000000ULL // mDNS service add
+
+#define ERR_NX_LLMNR_SocketCreate      0x8009050100000000ULL // LLMNR socket create
+#define ERR_NX_LLMNR_SocketBind        0x8009050200000000ULL // LLMNR socket bind
+#define ERR_NX_LLMNR_ThreadCreate      0x8009050300000000ULL // LLMNR thread create
+
 // Group 0x0A -- Board/GPIO --------------------------------------------------------------
 
 #define ERR_BOARD_DetectionFailed      0x800A000100000000ULL // Board detection failed

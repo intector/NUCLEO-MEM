@@ -116,6 +116,10 @@ static void MPU_Config(void);
 #define NX_HTTP_SERVER_ENABLE 1
 #define NX_FTP_SERVER_ENABLE  1
 #define NX_WS_SERVER_ENABLE   1
+#define NX_MDNS_ENABLE        1
+#define NX_LLMNR_ENABLE       1
+
+#define NX_HOSTNAME           "lab-web"
 
 extern TX_SEMAPHORE tx_app_semaphore;
 extern TX_MUTEX tx_app_mutex;

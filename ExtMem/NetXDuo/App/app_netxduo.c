@@ -21,6 +21,14 @@
 #include "http_server_cmd.h"
 #include "ws_server.h"
 
+#if NX_MDNS_ENABLE
+#include "nxd_mdns.h"
+#endif
+
+#if NX_LLMNR_ENABLE
+#include "llmnr_responder.h"
+#endif
+
 // Define Threadx global data structures.
 
 TX_THREAD NxAppThread;
@@ -57,6 +65,15 @@ static uint8_t __attribute__((section(".Nx_FTP_ServerPoolSection"))) nx_ftp_serv
 static uint8_t __attribute__((section(".dma_buffer"))) nx_ws_server_pool[WS_SRV_PACKET_POOL_SIZE];
 
 static uint8_t __attribute__((section(".dma_buffer"))) eth_packet_pool_buffer[NX_ETH_PACKET_POOL_SIZE];
+
+#if NX_MDNS_ENABLE
+NX_MDNS      mDNS_Instance;
+static UCHAR mdns_local_cache[NX_MDNS_LOCAL_CACHE_SIZE];
+// Peer cache required because NX_MDNS_DISABLE_CLIENT in nx_user.h is not
+// visible to nxd_mdns.c (NX_INCLUDE_USER_DEFINE_FILE not in compiler flags).
+// Provide a minimal buffer so the pointer check passes; never used.
+static UCHAR mdns_peer_cache[512];
+#endif
 
 // Define FileX global data structures.
 // the server reads the content from the uSD, a FX_MEDIA instance is required
@@ -138,6 +155,11 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
 
 	STM32_ERROR_CHECK(ERR_NX_UdpEnable, nx_udp_enable(&IpInstance));
 
+#if NX_MDNS_ENABLE || NX_LLMNR_ENABLE
+    // IGMP required for mDNS/LLMNR multicast
+    nx_igmp_enable(&IpInstance);
+#endif
+
     // ---------- set TAGID_SE_IP_ADDR_OK event flag ----------
     STM32_ERROR_CHECK(ERR_Tx_EventFlagsSet, tx_event_flags_set(&TAGID_status_event_group, TAGID_SE_IP_ADDR_OK, TX_OR));
 
@@ -189,6 +211,35 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr)
                                        &IpInstance,
                                        &WS_ServerPacketPool,
                                        pointer));
+#endif
+
+#if NX_MDNS_ENABLE
+    // Allocate mDNS thread stack from byte pool
+    STM32_ERROR_CHECK(ERR_Tx_ByteAllocate, tx_byte_allocate(byte_pool, (VOID **)&pointer, NX_MDNS_STACK_SIZE, TX_NO_WAIT));
+    // Create mDNS instance
+    STM32_ERROR_CHECK(ERR_NX_MDNS_Create, nx_mdns_create(&mDNS_Instance,
+                                       &IpInstance,
+                                       &EthPacketPool,
+                                       NX_APP_THREAD_PRIORITY + 1,
+                                       pointer,
+                                       NX_MDNS_STACK_SIZE,
+                                       (UCHAR *)NX_HOSTNAME,
+                                       mdns_local_cache,
+                                       NX_MDNS_LOCAL_CACHE_SIZE,
+                                       mdns_peer_cache,
+                                       sizeof(mdns_peer_cache),
+                                       NX_NULL));
+#endif
+
+#if NX_LLMNR_ENABLE
+    // Allocate LLMNR thread stack from byte pool
+    STM32_ERROR_CHECK(ERR_Tx_ByteAllocate, tx_byte_allocate(byte_pool, (VOID **)&pointer, NX_LLMNR_STACK_SIZE, TX_NO_WAIT));
+    // Initialize LLMNR responder (creates socket and thread, does not start)
+    STM32_ERROR_CHECK(ERR_NX_LLMNR_SocketCreate, LLMNR_Responder_Init(&IpInstance,
+                                       &EthPacketPool,
+                                       pointer,
+                                       NX_LLMNR_STACK_SIZE,
+                                       NX_HOSTNAME));
 #endif
 
 #if NX_THREAD_ENABLE
@@ -285,6 +336,25 @@ static VOID nx_app_thread_entry(ULONG thread_input)
     STM32_ERROR_CHECK(ERR_Tx_EventFlagsSet, tx_event_flags_set(&TAGID_status_event_group, TAGID_SE_WS_SERVER_OK, TX_OR));
 
 #endif         // WS_SERVER_ENABLE
+
+#if NX_MDNS_ENABLE
+    // Enable mDNS on interface 0
+    STM32_ERROR_CHECK(ERR_NX_MDNS_Enable, nx_mdns_enable(&mDNS_Instance, 0));
+    // Advertise HTTP service
+    nx_mdns_service_add(&mDNS_Instance,
+                        NX_NULL,
+                        (UCHAR *)"_http._tcp",
+                        NX_NULL, NX_NULL,
+                        120, 0, 0, 80,
+                        NX_TRUE, 0);
+    printf("mDNS: hostname '%s.local' registered\r\n", NX_HOSTNAME);
+#endif
+
+#if NX_LLMNR_ENABLE
+    // Start LLMNR responder (bind socket, join multicast, start thread)
+    LLMNR_Responder_Start();
+    printf("LLMNR: hostname '%s' registered\r\n", NX_HOSTNAME);
+#endif
 
     // OLED queue message buffer
     char _OLED_message[TX_OLED_SINGLE_MSG_SIZE_BYTES] = {0};

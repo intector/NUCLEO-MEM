@@ -97,7 +97,15 @@ UINT MX_NetXDuo_Init(VOID *memory_ptr);
 #define HTTP_SERVER_PACKET_SIZE			DEFAULT_PAYLOAD_SIZE
 #define FTP_SERVER_PACKET_SIZE			(NX_FTP_SERVER_MIN_PACKET_PAYLOAD * 2)
 
-// SD Driver information pointer 
+// mDNS configuration
+#define NX_MDNS_LOCAL_CACHE_SIZE        2048
+#define NX_MDNS_STACK_SIZE              2048
+
+// LLMNR configuration
+#define NX_LLMNR_STACK_SIZE             1024
+#define NX_LLMNR_THREAD_PRIORITY        12
+
+// SD Driver information pointer
 #define SD_DRIVER_INFO_POINTER			0
 
 

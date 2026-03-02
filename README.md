@@ -1,6 +1,6 @@
 # NUCLEO-MEM — Memory Expansion Shield for STM32 NUCLEO-144
 
-> *"Hardware is easy. It's the software that's hard."* — Elon Musk (We beg to differ.)
+> "If you want to go fast, go alone. If you want to go far, go together." — African Proverb
 
 A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OLED display** to ST NUCLEO-144 development boards — paired with a complete Azure RTOS firmware stack featuring network servers, real-time WebSocket telemetry, and a live web dashboard.
 
@@ -10,7 +10,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 ![IDE](https://img.shields.io/badge/IDE-Visual%20Studio%20%2B%20VisualGDB-5C2D91.svg)
 
 <p align="center">
-  <img src="pictures/pic_03_cover.jpg" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
+  <img src="hardware/images/pic_03_cover.png" alt="NUCLEO-MEM shield mounted on NUCLEO-H723ZG" width="800">
 </p>
 
 ## Features
@@ -23,6 +23,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 - **HTTP Server** — Static web dashboard served from eMMC on port 80
 - **FTP Server** — Remote file access on port 21 for uploading web content and configuration
 - **WebSocket Server** — Real-time bidirectional JSON communication on port 8080
+- **Hostname Resolution** — mDNS (`lab-web.local` for macOS/Linux) and LLMNR (`lab-web` for Windows) — no need to remember the IP address
 
 ### User Interface
 - **Web Dashboard** — Bootstrap-based single-page application with live telemetry display, LED control, and WebSocket debug log
@@ -46,7 +47,7 @@ A custom expansion shield that adds **OPI PSRAM**, **eMMC storage**, and an **OL
 | Ethernet PHY | LAN8742A | RMII | 100 Mbit (on NUCLEO board) |
 
 <p align="center">
-  <img src="pictures/pic_01.jpg" alt="NUCLEO-MEM shield — front and back" width="700">
+  <img src="hardware/images/pic_01.png" alt="NUCLEO-MEM shield — front and back" width="700">
 </p>
 
 Shield schematics are available in the [`hardware/`](hardware/) folder.
@@ -61,6 +62,8 @@ Shield schematics are available in the [`hardware/`](hardware/) folder.
 | OLED | 1 KB | Normal | SSD1306 display updates via message queue |
 | Telemetry | 4 KB | Normal | WebSocket telemetry streaming (~1 Hz) |
 | NetXDuo App | 2–4 KB | Normal | HTTP / FTP / WebSocket servers |
+| mDNS | 2 KB | Normal | `.local` hostname announcements (NetXDuo addon) |
+| LLMNR | 1 KB | Normal | Windows bare-hostname resolution (custom responder) |
 | ETH Link Check | — | — | Ethernet link status monitor |
 
 ### Middleware Stack
@@ -72,9 +75,11 @@ Shield schematics are available in the [`hardware/`](hardware/) folder.
 │   HTTP   │   FTP    │  WebSocket │ Telemetry│   OLED    │
 │  :80     │  :21     │   :8080    │  ~1 Hz   │  I2C2     │
 ├──────────┴──────────┴────────────┴──────────┴───────────┤
+│           mDNS (.local)  +  LLMNR (Windows)             │
+├─────────────────────────────────────────────────────────┤
 │              NetXDuo  (TCP/IP + BSD)                    │
 ├────────────────────────┬────────────────────────────────┤
-│     FileX (FAT/eMMC)  │           cJSON                 │
+│     FileX (FAT/eMMC)   │          cJSON                 │
 ├────────────────────────┴────────────────────────────────┤
 │                 ThreadX  (Azure RTOS)                   │
 ├─────────────────────────────────────────────────────────┤
@@ -101,7 +106,7 @@ Shield schematics are available in the [`hardware/`](hardware/) folder.
 The `Lab-Page-Demo/` directory contains a Bootstrap single-page application served by the on-board HTTP server. It connects to the WebSocket server on port 8080 for real-time interaction.
 
 <p align="center">
-  <img src="pictures/Web-Interface-1.png" alt="Web dashboard — LED control and live telemetry" width="900">
+  <img src="hardware/images/Web-Interface-2.png" alt="Web dashboard — LED control and live telemetry" width="900">
 </p>
 
 ### WebSocket API (port 8080)
@@ -150,7 +155,13 @@ git clone https://github.com/intector/NUCLEO-MEM.git
 | Subnet Mask | `255.255.255.0` |
 | Gateway | `192.168.0.1` |
 
-Connect the NUCLEO board to your network and navigate to `http://192.168.0.50` for the web dashboard.
+Connect the NUCLEO board to your network and open the web dashboard:
+
+| Platform | URL |
+|----------|-----|
+| Windows | `http://lab-web` |
+| macOS / Linux | `http://lab-web.local` |
+| Direct IP | `http://192.168.0.50` |
 
 > Network settings are stored in internal flash and persist across power cycles. Modify via `fw_settings.c`.
 
@@ -159,7 +170,7 @@ Connect the NUCLEO board to your network and navigate to `http://192.168.0.50` f
 The shield includes an SSD1306 128×32 OLED that shows real-time system status including network state, IP address, and Ethernet link information — driven by a dedicated RTOS thread.
 
 <p align="center">
-  <img src="pictures/pic_06.jpg" alt="NUCLEO-MEM running with OLED status display" width="500">
+  <img src="hardware/images/pic_06.jpg" alt="NUCLEO-MEM running with OLED status display" width="500">
 </p>
 
 ## Technical Details
@@ -197,6 +208,7 @@ NUCLEO-MEM/
 │   ├── Drivers/                   # CMSIS, STM32H7 HAL, BSP (LAN8742)
 │   ├── FileX/                     # FileX application layer and eMMC driver glue
 │   ├── int_flash/                 # Internal flash read/write for persistent settings
+│   ├── LLMNR/                     # LLMNR responder for Windows hostname resolution
 │   ├── Middlewares/ST/            # ThreadX, NetXDuo, FileX source (Cortex-M7 port)
 │   ├── NetXDuo/                   # NetXDuo TCP/IP application layer
 │   ├── ssd1306/                   # SSD1306 standalone driver
